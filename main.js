@@ -99,8 +99,9 @@ Circle.prototype.update = function () {
                           }
         }else if(ent.inmune){
             ent.turnsIt++;
-            if(ent.turnsIt>0)
-                ent.inmune=false;
+            if(ent.turnsIt>0) {
+                ent.inmune = false;
+            }
         }
         if (ent !== this && this.collide(ent)) {
             var temp = { x: this.velocity.x, y: this.velocity.y };
@@ -147,19 +148,7 @@ Circle.prototype.update = function () {
                     this.velocity.y *= ratio;
                 }
             }
-            if (ent.it && dist > this.radius + ent.radius) {
-                console.log("Here");
-                var difX = (ent.x - this.x) / dist;
-                var difY = (ent.y - this.y) / dist;
-                this.velocity.x -= difX * acceleration / (dist * dist);
-                this.velocity.y -= difY * acceleration / (dist * dist);
-                var speed = Math.sqrt(this.velocity.x * this.velocity.x + this.velocity.y * this.velocity.y);
-                if (speed > maxSpeed) {
-                    var ratio = maxSpeed / speed;
-                    this.velocity.x *= ratio;
-                    this.velocity.y *= ratio;
-                }
-            }
+
         }
     }
 
@@ -186,24 +175,29 @@ var maxSpeed = 200;
 
 var ASSET_MANAGER = new AssetManager();
 
+var canvas;
+var ctx;
+var gameEngine;
+
 ASSET_MANAGER.queueDownload("./img/Tron.mp3");
 
 ASSET_MANAGER.downloadAll(function () {
     console.log("starting up da sheild");
-    var canvas = document.getElementById('gameWorld');
-    var ctx = canvas.getContext('2d');
+    canvas = document.getElementById('gameWorld');
+    ctx = canvas.getContext('2d');
+    gameEngine = new GameEngine();
 
-
-    var gameEngine = new GameEngine();
-    var circle = new Circle(gameEngine);
-    circle.setIt();
-    gameEngine.addEntity(circle);
     for (var i = 0; i < 500; i++) {// how many circles
         circle = new Circle(gameEngine);
         gameEngine.addEntity(circle);
     }
-    gameEngine.init(ctx);
 
+
+    var circle = new Circle(gameEngine);
+    circle.setIt();
+    gameEngine.addEntity(circle);
+
+    gameEngine.init(ctx);
     var ost = new Audio("./img/Tron.mp3");
     ost.play();
     gameEngine.start();
