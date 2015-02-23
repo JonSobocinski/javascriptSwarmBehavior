@@ -12,6 +12,7 @@ AssetManager.prototype.queueDownload = function (path) {
 
 AssetManager.prototype.isDone = function () {
     return this.downloadQueue.length === this.successCount + this.errorCount;
+
 }
 
 AssetManager.prototype.downloadAll = function (callback) {

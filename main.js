@@ -16,7 +16,7 @@ function randomRespawn(){
 
             return !(onOrOff.indexOf("ff") > -1);
             // only one radio can be logically checked, don't check the rest
-            break;
+
         }
     }
 }

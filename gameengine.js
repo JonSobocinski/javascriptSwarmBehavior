@@ -139,6 +139,7 @@ function Entity(game, x, y) {
     this.x = x;
     this.y = y;
     this.removeFromWorld = false;
+
 }
 
 Entity.prototype.update = function () {
