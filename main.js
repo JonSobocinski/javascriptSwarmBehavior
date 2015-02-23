@@ -21,6 +21,40 @@ function randomRespawn(){
     }
 }
 
+function setFrction(){
+    var radios = document.getElementsByName('Frictionless');
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            // do whatever you want with the checked radio
+            var onOrOff = (radios[i].value);
+
+            if(onOrOff.indexOf("ff") > -1)
+                friction = 1;
+            else
+                friction = .5;
+            // only one radio can be logically checked, don't check the rest
+            break;
+        }
+    }
+}
+
+function setSpeed(){
+    var radios = document.getElementsByName('Fast');
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            // do whatever you want with the checked radio
+            var onOrOff = (radios[i].value);
+
+            if(onOrOff.indexOf("ff") > -1)
+                maxSpeed = 200;
+            else
+                maxSpeed = 400;
+            // only one radio can be logically checked, don't check the rest
+            break;
+        }
+    }
+}
+
 function Circle(game) {
     this.player =1;
     this.radius = 2;//how big the circles are
@@ -77,6 +111,8 @@ Circle.prototype.collideBottom = function () {
 
 Circle.prototype.update = function () {
     Entity.prototype.update.call(this);
+    setFrction();
+    setSpeed();
  //  console.log(this.velocity);
 
     this.x += this.velocity.x * this.game.clockTick;
@@ -196,9 +232,6 @@ var ASSET_MANAGER = new AssetManager();
 var canvas;
 var ctx;
 var gameEngine;
-
-
-var randomRespawn;
 
 ASSET_MANAGER.queueDownload("./img/Tron.mp3");
 
