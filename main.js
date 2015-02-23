@@ -200,5 +200,6 @@ ASSET_MANAGER.downloadAll(function () {
     gameEngine.init(ctx);
     var ost = new Audio("./img/Tron.mp3");
     ost.play();
+    ost.loop = true;
     gameEngine.start();
 });
