@@ -7,15 +7,29 @@ function distance(a, b) {
     return Math.sqrt(dx * dx + dy * dy);
 }
 
+function randomRespawn(){
+    var radios = document.getElementsByName('Repsawn at Random Cords');
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            // do whatever you want with the checked radio
+            var onOrOff = (radios[i].value);
+
+            return !(onOrOff.indexOf("ff") > -1);
+            // only one radio can be logically checked, don't check the rest
+            break;
+        }
+    }
+}
+
 function Circle(game) {
     this.player =1;
-    this.radius = 4;//how big the circles are
+    this.radius = 2;//how big the circles are
     this.visualRadius = 200;// initial how far they can see
     this.colors = ['#6FC3DF','#DF740C'];
     this.setNotIt();
     this.turnsIt = 0;
     this.inmune = false;
-    Entity.call(this, game, this.radius + Math.random() * (1600 - this.radius * 2), this.radius + Math.random() * (1600 - this.radius * 2));
+    Entity.call(this, game, this.radius + Math.random() * (800 - this.radius * 2), this.radius + Math.random() * (800 - this.radius * 2));
 
     this.velocity = { x: Math.random() * 1000, y: Math.random() * 1000 };
     var speed = Math.sqrt(this.velocity.x * this.velocity.x + this.velocity.y * this.velocity.y);
@@ -50,7 +64,7 @@ Circle.prototype.collideLeft = function () {
 };
 
 Circle.prototype.collideRight = function () {
-    return (this.x + this.radius) > 1600;
+    return (this.x + this.radius) > 800;
 };
 
 Circle.prototype.collideTop = function () {
@@ -58,7 +72,7 @@ Circle.prototype.collideTop = function () {
 };
 
 Circle.prototype.collideBottom = function () {
-    return (this.y + this.radius) > 1600;
+    return (this.y + this.radius) > 800;
 };
 
 Circle.prototype.update = function () {
@@ -71,7 +85,7 @@ Circle.prototype.update = function () {
     if (this.collideLeft() || this.collideRight()) {
         this.velocity.x = -this.velocity.x * friction;
         if (this.collideLeft()) this.x = this.radius;
-        if (this.collideRight()) this.x = 1600 - this.radius;
+        if (this.collideRight()) this.x = 800 - this.radius;
         this.x += this.velocity.x * this.game.clockTick;
         this.y += this.velocity.y * this.game.clockTick;
     }
@@ -79,14 +93,13 @@ Circle.prototype.update = function () {
     if (this.collideTop() || this.collideBottom()) {
         this.velocity.y = -this.velocity.y * friction;
         if (this.collideTop()) this.y = this.radius;
-        if (this.collideBottom()) this.y = 1600 - this.radius;
+        if (this.collideBottom()) this.y = 800 - this.radius;
         this.x += this.velocity.x * this.game.clockTick;
         this.y += this.velocity.y * this.game.clockTick;
     }
 
     for (var i = 0; i < this.game.entities.length; i++) {
         var ent = this.game.entities[i];
-
 
         if(ent.it  && !ent.inmune){
             ent.turnsIt++;
@@ -97,8 +110,10 @@ Circle.prototype.update = function () {
                 ent.turnsIt = -10000;
                 ent.inmune = true;
 
-                ent.x =  Math.random()*1600;
-                ent.y =  Math.random()*1600;
+                if(randomRespawn()){
+                    ent.x = Math.random()*800;
+                    ent.y = Math.random()*800;
+                }
                           }
         }else if(ent.inmune){
             ent.turnsIt++;
