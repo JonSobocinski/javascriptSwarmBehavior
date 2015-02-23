@@ -96,6 +96,9 @@ Circle.prototype.update = function () {
                 ent.setNotIt();
                 ent.turnsIt = -10000;
                 ent.inmune = true;
+
+                ent.x =  Math.random()*1600;
+                ent.y =  Math.random()*1600;
                           }
         }else if(ent.inmune){
             ent.turnsIt++;
@@ -179,10 +182,12 @@ var canvas;
 var ctx;
 var gameEngine;
 
+
+var randomRespawn;
+
 ASSET_MANAGER.queueDownload("./img/Tron.mp3");
 
 ASSET_MANAGER.downloadAll(function () {
-    console.log("starting up da sheild");
     canvas = document.getElementById('gameWorld');
     ctx = canvas.getContext('2d');
     gameEngine = new GameEngine();
