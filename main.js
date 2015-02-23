@@ -22,7 +22,7 @@ function randomRespawn(){
 }
 
 function setFrction(){
-    var radios = document.getElementsByName('Frictionless');
+    var radios = document.getElementsByName('Friction');
     for (var i = 0, length = radios.length; i < length; i++) {
         if (radios[i].checked) {
             // do whatever you want with the checked radio
