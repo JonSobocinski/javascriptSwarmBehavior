@@ -39,6 +39,7 @@ function GameEngine() {
     this.surfaceHeight = null;
 }
 
+
 GameEngine.prototype.init = function (ctx) {
     this.ctx = ctx;
     this.surfaceWidth = this.ctx.canvas.width;

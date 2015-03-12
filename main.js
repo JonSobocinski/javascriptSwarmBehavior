@@ -249,7 +249,6 @@ $('document').ready(function(){var ipAddress = '76.28.150.193';
         socket.emit("save",{studentname: "Jon Sobocinski", stateName:save, data: random+friction+speed});
         socket.emit("load",{studentname: "Jon Sobocinski", stateName:load});
         socket.on("load", function(data){
-
             console.log(data);
         });
 
