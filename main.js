@@ -55,6 +55,7 @@ function setSpeed(){
     }
 }
 
+
 function Circle(game) {
     this.player =1;
     this.radius = 2;//how big the circles are
@@ -146,6 +147,7 @@ Circle.prototype.update = function () {
                 ent.turnsIt = -10000;
                 ent.inmune = true;
 
+
                 if(randomRespawn()){
                     ent.x = Math.random()*800;
                     ent.y = Math.random()*800;
@@ -234,6 +236,27 @@ var ctx;
 var gameEngine;
 
 ASSET_MANAGER.queueDownload("./img/Tron.mp3");
+
+$('document').ready(function(){var ipAddress = '76.28.150.193';
+    var port = '8888';
+    var socket = io.connect('http://' + ipAddress + ':' + port);
+    var save = document.getElementById("save").innerHTML;
+    var load = document.getElementById("load").innerHTML;
+    var random = document.getElementById('Repsawn at Random Cords');
+    var friction = document.getElementsByName('Friction');
+    var speed = document.getElementsByName('Fast');
+    socket.on("connect",function(){
+        socket.emit("save",{studentname: "Jon Sobocinski", stateName:save, data: random+friction+speed});
+        socket.emit("load",{studentname: "Jon Sobocinski", stateName:load});
+        socket.on("load", function(data){
+
+            console.log(data);
+        });
+
+    })
+});
+
+
 
 ASSET_MANAGER.downloadAll(function () {
     canvas = document.getElementById('gameWorld');
